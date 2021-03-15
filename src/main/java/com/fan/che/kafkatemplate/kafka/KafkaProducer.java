@@ -1,6 +1,7 @@
 package com.fan.che.kafkatemplate.kafka;
 
 
+import org.apache.kafka.clients.producer.Producer;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Component
 @Deprecated
-public class KafkaProducer {
+public class KafkaProducer{
 
     private  KafkaTemplate<String, String> kafkaTemplate;
 
