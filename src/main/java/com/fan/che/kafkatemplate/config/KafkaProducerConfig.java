@@ -26,14 +26,14 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.producer.batch-size}")
     private Integer batchSize;
 
-    @Value("${spring.kafka.producer.buffer-m emory}")
+    @Value("${spring.kafka.producer.buffer-memory}")
     private Integer bufferMemory;
 
 
     @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.ACKS_CONFIG, "0");
+//        props.put(ProducerConfig.ACKS_CONFIG, "-1");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.RETRIES_CONFIG, retries);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
@@ -57,7 +57,8 @@ public class KafkaProducerConfig {
      */
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+        return kafkaTemplate;
     }
 
 

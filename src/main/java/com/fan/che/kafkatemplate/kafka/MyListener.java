@@ -5,33 +5,61 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;
-import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
 
-@Component
+//@Component
 public class MyListener {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    @KafkaListener(id = "test", topicPartitions = { @TopicPartition(topic = "demo0301", partitions = { "0" }) })
-    public void listenPartition0(List<ConsumerRecord<?, ?>> records) {
-        System.out.println("Id0 Listener, Thread ID: " + Thread.currentThread().getId());
-        System.out.println("Id0 records size " +  records.size());
+    @KafkaListener(id = "test",//id是消费者监听容器
+            topicPartitions = { @TopicPartition(topic = "demo0315", partitions = { "0", "3" }),
 
-        for (ConsumerRecord<?, ?> record : records) {
-            Optional<?> kafkaMessage = Optional.ofNullable(record.value());
-            System.out.println("Received: " + record);
-            if (kafkaMessage.isPresent()) {
-                Object message = record.value();
-                String topic = record.topic();
-                System.out.println("p0 Received message={}"+message);
-
-            }
-        }
+                    })
+    public void listen(ConsumerRecord<?, ?> record) {
+        String msgtoString = record.value().toString();
+        long startTime = Long.parseLong(msgtoString);
+        System.out.println("====start received time "+System.currentTimeMillis());
+        long endTime = System.currentTimeMillis();
+        System.out.println("=====costTime:" +(endTime-startTime));
+        System.out.println("topic:" + record.topic());
+        System.out.println("key:" + record.key());
+        System.out.println("value:"+record.value());
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @KafkaListener(id = "test", topicPartitions = { @TopicPartition(topic = "demo0315", partitions = { "0" }) })
+//    public void listenPartition0(List<ConsumerRecord<?, ?>> records) {
+//        System.out.println("Id0 Listener, Thread ID: " + Thread.currentThread().getId());
+//        System.out.println("Id0 records size " +  records.size());
+//        for (ConsumerRecord<?, ?> record : records) {
+//            Optional<?> kafkaMessage = Optional.ofNullable(record.value());
+//            System.out.println("Received: " + record);
+//            System.out.println("received time "+System.currentTimeMillis());
+//            if (kafkaMessage.isPresent()) {
+//                Object message = record.value();
+//                String topic = record.topic();
+//                System.out.println("p0 Received message={}"+message);
+//
+//            }
+//        }
+//    }
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
+@Deprecated
 public class KafkaProducer {
 
     private  KafkaTemplate<String, String> kafkaTemplate;
@@ -26,13 +27,13 @@ public class KafkaProducer {
     public void send(String topic, String msg) {
         kafkaTemplate.send(topic, msg);
     }
-
-    /**
-     * 向topic中发送消息
-     */
-    public void send(String topic, List<String> msgs) {
-        msgs.forEach(msg -> kafkaTemplate.send(topic, msg));
-    }
+//
+//    /**
+//     * 向topic中发送消息
+//     */
+//    public void send(String topic, List<String> msgs) {
+//        msgs.forEach(msg -> kafkaTemplate.send(topic, msg));
+//    }
 
 }
 
