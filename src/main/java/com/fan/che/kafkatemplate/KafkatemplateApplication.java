@@ -13,6 +13,9 @@ public class KafkatemplateApplication extends SpringBootServletInitializer {
     public static Logger logger = LoggerFactory.getLogger(KafkatemplateApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(KafkatemplateApplication.class, args);
+
+        logger.info("Hello World");
+
     }
 
     @Override
